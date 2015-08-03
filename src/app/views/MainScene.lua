@@ -16,8 +16,9 @@ function MainScene:onCreate()
         cc.Director:getInstance():pushScene(ts)
     end--]]
     --start_btn:registerScriptTapHandler(switchScene)
+    start_btn:setScale(0.5)
     cc.Menu:create(start_btn)
-    :move(display.cx,display.cy)
+    :move(display.cx,display.cy-100)
     :addTo(self)
     --music
     local music=AudioEngine.preloadMusic("background.ogg")

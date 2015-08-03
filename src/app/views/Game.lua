@@ -7,9 +7,12 @@
 --
 local Game=class("Game",cc.load("mvc").ViewBase)
 local GameMap=import(".GameMap")
+local Man=import(".Man")
 function Game:onCreate()
     self.GameMap=GameMap:create()
     self:addChild(self.GameMap)
+    self.Man=Man:create()
+    self:addChild(self.Man)
 end
 return Game
 
