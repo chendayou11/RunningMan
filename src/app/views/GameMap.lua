@@ -13,11 +13,11 @@ function GameMap:ctor()
     Map_2:setPositionX(Map_2:getContentSize().width)
     self:addChild(Map_2,0,100)
     self.Map_1=Map_1 self.Map_2=Map_2
-    local timer=cc.Director:getInstance():getScheduler():scheduleScriptFunc(handler(self,self.bg),0.05,false)
+    local timer=cc.Director:getInstance():getScheduler():scheduleScriptFunc(handler(self,self.bg),0.01,false)
 end
 function GameMap:bg()
-    self.Map_1:setPositionX(self.Map_1:getPositionX()-5)
-    self.Map_2:setPositionX(self.Map_2:getPositionX()-5)
+    self.Map_1:setPositionX(self.Map_1:getPositionX()-2)
+    self.Map_2:setPositionX(self.Map_2:getPositionX()-2)
     if self.Map_1:getPositionX()==-display.width then
         print("123123")
         self.Map_1:setPositionX(0)

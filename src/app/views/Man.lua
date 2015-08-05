@@ -12,6 +12,8 @@ function Man:ctor()
     man:setAnchorPoint(0,0)
     man:setPosition(50,60)
     self:addChild(man)
+    self.coins={}
+    self.man=man
     local animation=cc.Animation:create()
     for i=1,7 do
         local frameName=string.format("runner%d.png",i)
@@ -22,9 +24,9 @@ function Man:ctor()
     animation:setRestoreOriginalFrame(true)
     local action=cc.Animate:create(animation)
     man:runAction(cc.RepeatForever:create(action))
-    self:coins()
+    self:coinAnimate()
 end
-function Man:coins()
+function Man:coinAnimate()
     local frameCache=cc.SpriteFrameCache:getInstance():addSpriteFrames("parkour.plist")
     local coin_1=cc.Sprite:createWithSpriteFrameName("coin4.png")
     coin_1:setAnchorPoint(0,0)
@@ -40,17 +42,23 @@ function Man:coins()
     animation:setRestoreOriginalFrame(true)
     local action=cc.Animate:create(animation)
     coin_1:runAction(cc.RepeatForever:create(action))
-
+    self.coin_1=coin_1
+    local addCoinTimer=cc.Director:getInstance():getScheduler():scheduleScriptFunc(handler(self,self.moveAI),0.3,false)
 end
---[[function Man:moveAI()
-    local frameCache=cc.SpriteFrameCache:getInstance():addSpriteFrames("parkour.plist")
-    local coin_1=cc.Sprite:createWithSpriteFrameName("coin4.png")
+function Man:moveAI()
+    local coinMove=cc.Sprite:createWithSpriteFrameName("coin1.png")
+    self:addChild(coinMove)
     local x=math.random(250,640)
-    self:setPosition(x,display.height)
+    coinMove:setPosition(600,200)
+    self.coins[coinMove]=coinMove
     local move=cc.MoveBy:create(3,cc.p(-display.width,0))
-    --local fun=cc.CallFunc:create(handler(self,self.removeNode))
-    --local seq=cc.Sequence:create(move,fun)
-    self:runAction(move)
-end--]]
+    local fun=cc.CallFunc:create(handler(self,self.removeCoins))
+    local seq=cc.Sequence:create(move,fun)
+    coinMove:runAction(seq)
+end
+function Man:removeCoins(node)
+    self.coins[node]=nil
+    node:removeSelf()
+end
 return Man
 
