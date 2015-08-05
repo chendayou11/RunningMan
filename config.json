@@ -3,7 +3,7 @@
     "isLandscape": true,
     "isWindowTop": false,
     "name": "RunningMan",
-    "width": 480,
+    "width": 640,
     "height": 320,
     "entry": "src/main.lua",
     "consolePort": 6050,

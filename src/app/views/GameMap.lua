@@ -10,21 +10,18 @@ function GameMap:ctor()
     local Map_1=cc.TMXTiledMap:create("map00.tmx")
     self:addChild(Map_1,0,100)
     local Map_2=cc.TMXTiledMap:create("map01.tmx")
-    Map_2:setPositionX(Map_2:getMapSize().width*Map_2:getTileSize().width)
-    print(Map_1:getMapSize().width)
+    Map_2:setPositionX(Map_2:getContentSize().width)
     self:addChild(Map_2,0,100)
-    self.Map_1=Map_1
-    self.Map_2=Map_2
-    --local timer=cc.Director:getInstance():getScheduler():scheduleScriptFunc(handler(self,self.bg),1,false)
+    self.Map_1=Map_1 self.Map_2=Map_2
+    local timer=cc.Director:getInstance():getScheduler():scheduleScriptFunc(handler(self,self.bg),0.05,false)
 end
 function GameMap:bg()
-    --self.Map_1:setPositionX(self.Map_1:getMapSize().width*self.Map_1:getTileSize().width-0.5)
-    self.Map_1:setPosition(0,0)
-    self.Map_2:setPositionX(self.Map_1:getMapSize().width*self.Map_1:getTileSize().width+display.width-0.5)
-    print("fasljf;asjf;lsd")
-    if self.Map_1:getPositionX()==-self.Map_1:getMapSize().width*self.Map_1:getTileSize().width then
+    self.Map_1:setPositionX(self.Map_1:getPositionX()-5)
+    self.Map_2:setPositionX(self.Map_2:getPositionX()-5)
+    if self.Map_1:getPositionX()==-display.width then
         print("123123")
         self.Map_1:setPositionX(0)
+        self.Map_2:setPositionX(self.Map_2:getContentSize().width)
     end
 end
 return GameMap
