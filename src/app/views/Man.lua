@@ -25,6 +25,7 @@ function Man:ctor()
     local action=cc.Animate:create(animation)
     man:runAction(cc.RepeatForever:create(action))
     self:coinAnimate()
+    local timerPengzhuang=cc.Director:getInstance():getScheduler():scheduleScriptFunc(handler(self,self.pengzhuang),0.1,false)
 end
 function Man:coinAnimate()
     local frameCache=cc.SpriteFrameCache:getInstance():addSpriteFrames("parkour.plist")
@@ -59,6 +60,13 @@ end
 function Man:removeCoins(node)
     self.coins[node]=nil
     node:removeSelf()
+end
+function Man:pengzhuang()
+    for k,v in pairs(self.coins) do
+        if cc.rectIntersectsRect(v:getBoundingBox(),self.man:getBoundingBox()) then
+            self:removeCoins(v)
+            end
+        end
 end
 return Man
 
