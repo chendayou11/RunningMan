@@ -6,7 +6,8 @@
 -- To change this template use File | Settings | File Templates.
 --
 local enemy=class("enemy",cc.Layer)
-function enemy:ctor()
+function enemy:ctor(Man)
+    self.man=Man
     self:daodan()
     self:guai()
 end
@@ -23,12 +24,23 @@ function enemy:guai()
         local picpath=string.format("bird_%d.png",i)
         animation:addSpriteFrameWithFile(picpath)
     end
-    animation:setDelayPerUnit(1)
+    animation:setDelayPerUnit(0.5)
     animation:setRestoreOriginalFrame(true)
     local animate=cc.Animate:create(animation)
     local picstart=cc.Sprite:create("bird_3.png")
+    local repet=cc.RepeatForever:create(animate)
     picstart:setPosition(600,80)
     self:addChild(picstart)
-    picstart:runAction(cc.RepeatForever:create(animate))
+    picstart:runAction(repet)
+    self.picstart=picstart
+    local timerGG=cc.Director:getInstance():getScheduler():scheduleScriptFunc(handler(self,self.moveGG),0.05,false)
+end
+function enemy:moveGG()
+    self.picstart:setPositionX(self.picstart:getPositionX()-15)
+    local manRect=self.man.man:getBoundingBox()
+    local rect=self.picstart:getBoundingBox()
+    if cc.rectIntersectsRect(manRect,rect) then
+        self.man.man:setVisible(false)
+    end
 end
 return enemy
