@@ -18,7 +18,6 @@ function JumpDown:jump()
     :move(600,20)
     :addTo(self)
     jump:onClicked(function()
-        print("weizhi",jump:getPositionY())
         self.Man.man:runAction(cc.JumpTo:create(0.75,cc.p(60,66),120,1))
     end)
 end
