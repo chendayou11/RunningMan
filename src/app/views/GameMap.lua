@@ -19,7 +19,6 @@ function GameMap:bg()
     self.Map_1:setPositionX(self.Map_1:getPositionX()-2)
     self.Map_2:setPositionX(self.Map_2:getPositionX()-2)
     if self.Map_1:getPositionX()==-display.width then
-        print("123123")
         self.Map_1:setPositionX(0)
         self.Map_2:setPositionX(self.Map_2:getContentSize().width)
     end
