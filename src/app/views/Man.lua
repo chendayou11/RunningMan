@@ -6,7 +6,8 @@
 -- To change this template use File | Settings | File Templates.
 --
 local Man=class("Man",cc.Layer)
-function Man:ctor()
+function Man:ctor(shuxing)
+    self.shuxing=shuxing
     local frameCache=cc.SpriteFrameCache:getInstance():addSpriteFrames("parkour.plist")
     local man=cc.Sprite:createWithSpriteFrameName("runner7.png")
     man:setAnchorPoint(0,0)
@@ -63,8 +64,12 @@ function Man:removeCoins(node)
 end
 function Man:pengzhuang()
     for k,v in pairs(self.coins) do
+        for k1,v1 in  pairs(self.shuxing.bloods) do
         if cc.rectIntersectsRect(v:getBoundingBox(),self.man:getBoundingBox()) then
             self:removeCoins(v)
+            print("ffffffgaasf")
+            self.shuxing:removeBlood(k1)
+            end
             end
         end
 end
