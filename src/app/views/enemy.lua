@@ -6,9 +6,10 @@
 -- To change this template use File | Settings | File Templates.
 --
 local enemy=class("enemy",cc.Layer)
-function enemy:ctor(Man)
+function enemy:ctor(Man,shuxing)
     self.birds={}
     self.man=Man
+    self.shuxing=shuxing
     self:daodan()
     local timerGG=cc.Director:getInstance():getScheduler():scheduleScriptFunc(handler(self,self.ggpengzhuang),0.1,false)
     local timer=cc.Director:getInstance():getScheduler():scheduleScriptFunc(handler(self,self.birdani),5,false)
@@ -54,6 +55,7 @@ function enemy:ggpengzhuang()
         local blink=cc.Blink:create(0.5,4)
         self.man.man:runAction(blink)
         self:removeGG(v)
+        self.shuxing:removeBlood()
         end
     end
 end

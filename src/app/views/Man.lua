@@ -67,7 +67,6 @@ function Man:pengzhuang()
         for k1,v1 in  pairs(self.shuxing.bloods) do
         if cc.rectIntersectsRect(v:getBoundingBox(),self.man:getBoundingBox()) then
             self:removeCoins(v)
-            self.shuxing:removeBlood(v1)
             end
             end
         end
