@@ -11,26 +11,20 @@ function ShuXing:ctor()
     self:blood()
 end
 function ShuXing:blood()
-    local blood_1=cc.Sprite:create("stars.png")
-    local blood_2=cc.Sprite:create("stars.png")
-    local blood_3=cc.Sprite:create("stars.png")
-    blood_1:setPosition(20,300)
-    blood_2:setPosition(50,300)
-    blood_3:setPosition(80,300)
-    self:addChild(blood_1)
-    self:addChild(blood_2)
-    self:addChild(blood_3)
-    self.bloods={"blood_1","blood_2","blood_3" }
-    self.blood_1=blood_1
-    self.blood_2=blood_2
-    self.blood_3=blood_3
+    self.x=15
+   for i=1,3 do
+        local blood=cc.Sprite:create("Star.png")
+        blood:setScale(0.3)
+        self:addChild(blood)
+        blood:setPosition(blood:getPositionX()+self.x*i,300)
+        table.insert(self.bloods,blood)
+    end
 end
 function ShuXing:Score()
 end
 function ShuXing:removeBlood(node)
     self.bloods[node]=nil
-    self.blood_1:removeSelf()
-    print("blood")
+    node:removeSelf()
 end
 return ShuXing
 
